@@ -11,9 +11,38 @@
 #include <string.h>
 #endif
 
+#include <stdlib.h>
 #include "../functions.h"
 
-char* solution = "PILLS";
+char* solution;
+
+char* choose_random_word(const char *filename) {
+    FILE *f;
+    size_t lineno = 0;
+    size_t selected_length;
+    char selected[6]; /* Arbitrary, make it whatever size makes sense */
+    char current[6];
+    selected[0] = '\0'; /* Don't crash if file is empty */
+    double random_number = ((double)rand()/(double)RAND_MAX);
+
+    if((f = fopen(filename, "r")) == NULL)
+    {
+        fprintf(stderr, "Failed to open dictionary. Make sure the dictionary file is inside Wordle's folder.\n");
+        exit(1);
+    }
+
+    while (fgets(current, sizeof(current), f)) {
+        if (random_number < 1.0 / ++lineno) {
+            strcpy(selected, current);
+        }
+    }
+    fclose(f);
+    selected_length = strlen(selected);
+    if (selected_length > 0 && selected[selected_length - 1] == '\n') {
+        selected[selected_length - 1] = '\0';
+    }
+    return strdup(selected);
+}
 
 void print_letter_in_color(char letter, int state)
 {

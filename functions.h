@@ -1,5 +1,6 @@
 #pragma once
 
+#define FILE_NAME "../dictionary"
 #define WORD_MAX_LENGTH 5
 #define BOARD_MAX_LENGTH 6
 #ifdef linux
@@ -12,6 +13,7 @@
 extern char* solution;
 static int points = 0;
 
+char* choose_random_word(const char *filename);
 void print_letter_in_color(char letter, int state);
 void print_word(char word[], int size);
 void print_board(char board[BOARD_MAX_LENGTH][WORD_MAX_LENGTH]);

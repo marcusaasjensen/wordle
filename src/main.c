@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(void)
+int main(int argc, char* argv[])
 {
     printf("Welcome to WORDLE!\n");
     printf("Made in C by Marcus Aas Jensen.\n\n");
@@ -19,6 +19,8 @@ int main(void)
     {
         if(is_restarting)
         {
+            solution = choose_random_word(FILE_NAME);
+            format_input(solution, solution, WORD_MAX_LENGTH);
             initialize_board(board);
             current_board_index = 0;
             print_board(board);
@@ -53,12 +55,16 @@ int main(void)
 
         int is_word_same_as_solution = compare_word_to_solution(board[current_board_index]);
         if(is_word_same_as_solution)
-            printf("Well done! The word was \"%s\".\nPoints (+1): %d\n", solution, ++points);
+        {
+            printf("Well done! +1 point\n");
+            points++;
+        }
         else if(current_board_index == 5)
-            printf("You have lost!\nPoints: %d\n", points);
+            printf("You have lost!");
 
         if(current_board_index == 5 || is_word_same_as_solution)
         {
+            printf("The word was \"%s\".\nPoints: %d\n", solution, points);
             do {
                 printf("Restart the game ? (y or n):");
                 scanf("%s", input);
