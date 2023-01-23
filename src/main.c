@@ -49,6 +49,12 @@ int main(int argc, char* argv[])
             continue;
         }
 
+        if(!is_word_in_dictionary(current_word, FILE_NAME))
+        {
+            fprintf(stderr, "The input is not a word in the dictionary.\n");
+            continue;
+        }
+
         for(int i = 0 ; current_word[i] != '\0' ; i++) board[current_board_index][i] = current_word[i];
 
         print_board(board);

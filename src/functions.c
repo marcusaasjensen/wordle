@@ -16,7 +16,32 @@
 
 char* solution;
 
-char* choose_random_word(const char *filename) {
+int is_word_in_dictionary(char word[], const char *filename)
+{
+    FILE *f;
+    char current[6];
+    char tocompare[6] = {};
+
+    for(int i = 0 ; i < strlen(word) ; i++)
+        tocompare[i] = (char) tolower(word[i]);
+
+    if((f = fopen(filename, "r")) == NULL)
+    {
+        fprintf(stderr, "Failed to open dictionary. Make sure the dictionary file is inside Wordle's folder.\n");
+        exit(1);
+    }
+    while (fgets(current, sizeof(current), f))
+        if(strcmp(current, tocompare) == 0)
+        {
+            fclose(f);
+            return 1;
+        }
+    fclose(f);
+    return 0;
+}
+
+char* choose_random_word(const char *filename)
+{
     FILE *f;
     size_t lineno = 0;
     size_t selected_length;
