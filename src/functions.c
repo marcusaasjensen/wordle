@@ -12,6 +12,7 @@
 #endif
 
 #include <stdlib.h>
+#include <time.h>
 #include "../functions.h"
 
 char* solution;
@@ -40,6 +41,11 @@ int is_word_in_dictionary(char word[], const char *filename)
     return 0;
 }
 
+int rand_range(int lower, int upper)
+{
+    return (rand() % (upper - lower + 1)) + lower;
+}
+
 char* choose_random_word(const char *filename)
 {
     FILE *f;
@@ -48,7 +54,8 @@ char* choose_random_word(const char *filename)
     char selected[6]; /* Arbitrary, make it whatever size makes sense */
     char current[6];
     selected[0] = '\0'; /* Don't crash if file is empty */
-    double random_number = ((double)rand()/(double)RAND_MAX);
+    srand(time(0));
+    int random_number = rand_range(1, DICTIONARY_LENGTH);
 
     if((f = fopen(filename, "r")) == NULL)
     {
@@ -56,16 +63,26 @@ char* choose_random_word(const char *filename)
         exit(1);
     }
 
-    while (fgets(current, sizeof(current), f)) {
-        if (random_number < 1.0 / ++lineno) {
+    int index = 0;
+
+    while (fgets(current, sizeof(current), f))
+    {
+        if(strlen(current) != WORD_MAX_LENGTH)
+            continue;
+
+        if (++index == random_number)
+        {
             strcpy(selected, current);
+            break;
         }
     }
+
     fclose(f);
     selected_length = strlen(selected);
-    if (selected_length > 0 && selected[selected_length - 1] == '\n') {
+
+    if (selected_length > 0 && selected[selected_length - 1] == '\n')
         selected[selected_length - 1] = '\0';
-    }
+
     return strdup(selected);
 }
 
@@ -128,13 +145,11 @@ void print_word(char word[], int size)
             {
                 letter_state = 1;
                 solution_buffer[j] = '_';
-                break;
             }
             else
             if(word[j] != solution_buffer[j])
             {
                 letter_state = 0;
-                break;
             }
         }
         print_letter_in_color(word[i], letter_state);

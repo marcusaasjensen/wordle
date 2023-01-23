@@ -3,6 +3,7 @@
 #define FILE_NAME "../dictionary"
 #define WORD_MAX_LENGTH 5
 #define BOARD_MAX_LENGTH 6
+#define DICTIONARY_LENGTH 5757
 #ifdef linux
 #define RED   "\x1B[31m"
 #define GRN   "\x1B[32m"
@@ -13,8 +14,9 @@
 extern char* solution;
 static int points = 0;
 
-char* choose_random_word(const char *filename);
 int is_word_in_dictionary(char word[], const char *filename);
+int rand_range(int lower, int upper);
+char* choose_random_word(const char *filename);
 void print_letter_in_color(char letter, int state);
 void print_word(char word[], int size);
 void print_board(char board[BOARD_MAX_LENGTH][WORD_MAX_LENGTH]);

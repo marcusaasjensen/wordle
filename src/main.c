@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
             points++;
         }
         else if(current_board_index == 5)
-            printf("You have lost!");
+            printf("You have lost!\n");
 
         if(current_board_index == 5 || is_word_same_as_solution)
         {
