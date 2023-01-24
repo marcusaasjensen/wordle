@@ -145,11 +145,13 @@ void print_word(char word[], int size)
             {
                 letter_state = 1;
                 solution_buffer[j] = '_';
+                break;
             }
             else
-            if(word[j] != solution_buffer[j])
+            if(word[j] != solution_buffer[j] && word[i] != solution_buffer[i])
             {
                 letter_state = 0;
+                break;
             }
         }
         print_letter_in_color(word[i], letter_state);
