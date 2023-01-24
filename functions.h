@@ -19,6 +19,7 @@ int is_word_in_dictionary(char word[], const char *filename);
 int rand_range(int lower, int upper);
 char* choose_random_word(const char *filename);
 void print_letter_in_color(char letter, int state);
+int nb_occurrence(char word[], char letter);
 void print_word(char word[], int size);
 void print_board(char board[BOARD_MAX_LENGTH][WORD_MAX_LENGTH]);
 void format_input(char *dest, char *input, int size);

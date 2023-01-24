@@ -163,13 +163,23 @@ void print_letter_in_color(char letter, int state)
 #endif
 }
 
+int nb_occurrence(char word[], char letter)
+{
+    int counter = 0;
+    for(int i = 0; word[i] != '\0' ; i++) counter += word[i] == letter;
+    return counter;
+}
+
 void print_word(char word[], int size)
 {
     int letter_state;
+    int found_index = 0;
 
     char solution_buffer[WORD_MAX_LENGTH] = {};
+    char letters_found[WORD_MAX_LENGTH] = {};
 
     strcpy(solution_buffer, solution);
+
 
     for(int i = 0 ; i < size ; i++)
     {
@@ -182,12 +192,17 @@ void print_word(char word[], int size)
             {
                 letter_state = 1;
                 solution_buffer[j] = '_';
+                letters_found[found_index++] = word[i];
                 break;
             }
-            else
-            if(word[j] != solution_buffer[j] && word[i] != solution_buffer[i])
+
+            int nb_occurrence_is_reached = nb_occurrence(letters_found, word[i]) == nb_occurrence(solution, word[i]);
+            int is_compared_letter_correct = word[j] == solution_buffer[j];
+
+            if(!is_compared_letter_correct && !nb_occurrence_is_reached)
             {
                 letter_state = 0;
+                letters_found[found_index++] = word[i];
                 break;
             }
         }
