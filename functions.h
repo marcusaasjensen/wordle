@@ -1,6 +1,6 @@
 #pragma once
 
-#define FILE_NAME "../dictionary"
+#define FILE_NAME "./dictionary"
 #define WORD_MAX_LENGTH 5
 #define BOARD_MAX_LENGTH 6
 #define DICTIONARY_LENGTH 5757

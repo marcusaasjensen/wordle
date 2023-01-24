@@ -13,7 +13,7 @@
 
 #include <stdlib.h>
 #include <time.h>
-#include "../functions.h"
+#include "functions.h"
 
 char* solution;
 
