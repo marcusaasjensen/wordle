@@ -7,6 +7,8 @@ int main(int argc, char* argv[])
     printf("Welcome to WORDLE!\n");
     printf("Made in C by Marcus Aas Jensen.\n\n");
 
+    show_instructions();
+
     char board[BOARD_MAX_LENGTH][WORD_MAX_LENGTH] = {{}};
     char current_word[WORD_MAX_LENGTH + 1] = {};
     char input[WORD_MAX_LENGTH + 1];
@@ -39,6 +41,12 @@ int main(int argc, char* argv[])
             continue;
         }
 
+        if(strcmp(current_word, "I") == 0)
+        {
+            show_instructions();
+            continue;
+        }
+
         if(strcmp(current_word, "Q") == 0) break;
 
         int is_expected_word = strlen(current_word) == WORD_MAX_LENGTH;
@@ -51,7 +59,7 @@ int main(int argc, char* argv[])
 
         if(!is_word_in_dictionary(current_word, FILE_NAME))
         {
-            fprintf(stderr, "The input is not a word in the dictionary.\n");
+            fprintf(stderr, "The input is not a word in the 5-letters dictionary.\n");
             continue;
         }
 

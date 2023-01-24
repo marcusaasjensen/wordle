@@ -14,6 +14,7 @@
 extern char* solution;
 static int points = 0;
 
+void show_instructions();
 int is_word_in_dictionary(char word[], const char *filename);
 int rand_range(int lower, int upper);
 char* choose_random_word(const char *filename);

@@ -17,6 +17,43 @@
 
 char* solution;
 
+void show_instructions()
+{
+    printf("\nInstructions (I to open):\n");
+    printf("Goal: find the unknown 5-letter word in less than 6 tries.\n\n");
+#ifdef linux
+    printf("%sGREEN%s letters are correctly placed in the word.\n", GRN, RESET);
+    printf("%sYELLOW%s letters are inside the word but with an incorrect position.\n", YEL, RESET);
+#endif
+#ifdef _WIN32
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    WORD saved_attributes;
+
+    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+    saved_attributes = consoleInfo.wAttributes;
+
+    SetConsoleTextAttribute(hConsole,
+                            FOREGROUND_GREEN);
+    printf("GREEN");
+
+    SetConsoleTextAttribute(hConsole,
+                            saved_attributes);
+    printf(" letters are correctly placed in the word.\n");
+
+    SetConsoleTextAttribute(hConsole,
+                            FOREGROUND_BLUE);
+    printf("BLUE");
+
+    SetConsoleTextAttribute(hConsole,
+                            saved_attributes);
+    printf(" letters are inside the word but with an incorrect position.\n");
+
+#endif
+    printf("UNCOLORED letters are incorrect.\n\n");
+}
+
 int is_word_in_dictionary(char word[], const char *filename)
 {
     FILE *f;
